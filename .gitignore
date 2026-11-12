@@ -218,3 +218,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Heart Disease Project
+
+# Raw and processed datasets
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+# Trained model files
+models/*.joblib
+models/*.pkl
+models/*.pickle
+
+# VS Code workspace settings
+.vscode/
