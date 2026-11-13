@@ -226,9 +226,6 @@ __marimo__/
 data/raw/*
 !data/raw/.gitkeep
 
-data/processed/*
-!data/processed/.gitkeep
-
 # Trained model files
 models/*.joblib
 models/*.pkl
