@@ -81,3 +81,36 @@ No model has been selected or trained at this stage.
 ---
 
 *This document will be updated as experiments are conducted and model-selection decisions are finalized.*
+
+
+# Model Selection Decisions
+
+## Hyperparameter Tuning Results
+
+Four machine learning models were tuned using 5-fold Stratified Cross-Validation with ROC-AUC as the optimization metric.
+
+The tuned models were evaluated on the held-out test dataset containing 61 records.
+
+## Final Test Performance
+
+| Model | Accuracy | Precision | Recall | Specificity | F1 Score | ROC-AUC | PR-AUC |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Logistic Regression | 0.8852 | 0.8387 | 0.9286 | 0.8485 | 0.8814 | 0.9654 | 0.9622 |
+| Random Forest | 0.8689 | 0.8125 | 0.9286 | 0.8182 | 0.8667 | 0.9491 | 0.9246 |
+| Support Vector Machine | 0.8361 | 0.8000 | 0.8571 | 0.8182 | 0.8276 | 0.9426 | 0.9382 |
+| K-Nearest Neighbors | 0.8852 | 0.8621 | 0.8929 | 0.8788 | 0.8772 | 0.9621 | 0.9518 |
+
+## Preliminary Model Selection
+
+Logistic Regression is selected as the leading candidate based on its highest test ROC-AUC (0.9654), highest F1 score (0.8814), and high recall (0.9286).
+
+K-Nearest Neighbors is retained as a strong alternative because it achieved the highest precision (0.8621) and specificity (0.8788), while matching Logistic Regression's accuracy.
+
+Random Forest and Support Vector Machine are retained for comparative analysis.
+
+## Important Considerations
+
+- The test dataset contains only 61 records, so performance estimates have uncertainty.
+- Test-set results are used for final evaluation, not further hyperparameter tuning.
+- The selected model is a candidate for further explainability and integration, not a clinically validated diagnostic system.
+- Final conclusions should acknowledge the limitations of the dataset and evaluation sample size.

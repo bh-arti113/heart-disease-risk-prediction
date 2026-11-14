@@ -1,0 +1,5 @@
+Model,Best ROC-AUC,Best Parameters
+Logistic Regression,0.9027904462687071,"{'classifier__solver': 'lbfgs', 'classifier__class_weight': 'balanced', 'classifier__C': 0.1}"
+Random Forest,0.9047616634573157,"{'classifier__n_estimators': 500, 'classifier__min_samples_split': 5, 'classifier__min_samples_leaf': 2, 'classifier__max_features': 'log2', 'classifier__max_depth': 10, 'classifier__class_weight': None}"
+Support Vector Machine,0.9047430830039527,"{'classifier__kernel': 'linear', 'classifier__gamma': 'scale', 'classifier__class_weight': None, 'classifier__C': 0.1}"
+K-Nearest Neighbors,0.8996337398511312,"{'classifier__weights': 'distance', 'classifier__p': 1, 'classifier__n_neighbors': 11}"
