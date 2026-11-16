@@ -233,3 +233,6 @@ models/*.pickle
 
 # VS Code workspace settings
 .vscode/
+
+# Ignore genrated EDA report
+reports/uci_heart_disease_eda_report.html
