@@ -236,3 +236,7 @@ models/*.pickle
 
 # Ignore genrated EDA report
 reports/uci_heart_disease_eda_report.html
+
+# Ignore processed dataset
+data/processed/test_processed.csv
+data/processed/train_processed.csv
