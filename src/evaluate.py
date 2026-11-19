@@ -52,8 +52,13 @@ def evaluate_classifier(y_true, y_pred, y_score=None):
         if not np.isin(y_true, [0, 1]).all():
             raise ValueError("Actual labels must contain only 0 and 1.")
         if len(np.unique(y_true)) == 2:
-            results["ROC-AUC"] = roc_auc_score(y_true, y_score)
-            results["PR-AUC"] = average_precision_score(y_true, y_score)
+            results["ROC-AUC"] = roc_auc_score(
+                y_true, y_score
+            )
+
+            results["Average Precision"] = average_precision_score(
+                y_true, y_score
+            )
     return results
 
 def print_evaluation_report(results, model_name="Classification Model"):
@@ -73,7 +78,7 @@ def print_evaluation_report(results, model_name="Classification Model"):
             display_value = "N/A"
         else:
             display_value = f"{value:.4f}"
-        print(f"  {metric:<20} : {display_value:>10}")
+        print(f"  {metric:<22} : {display_value}")
     if "Confusion Matrix" in results:
         matrix = np.asarray(results["Confusion Matrix"])
         print("\n  CONFUSION MATRIX")

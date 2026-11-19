@@ -1,0 +1,31 @@
+{
+    "model_name": "Logistic Regression",
+    "best_cv_roc_auc": 0.921021474667308,
+    "best_parameters": {
+        "classifier__solver": "lbfgs",
+        "classifier__class_weight": null,
+        "classifier__C": 0.1
+    },
+    "training_records": 303,
+    "feature_columns": [
+        "age",
+        "sex",
+        "cp",
+        "trestbps",
+        "chol",
+        "fbs",
+        "restecg",
+        "thalach",
+        "exang",
+        "oldpeak",
+        "slope",
+        "ca",
+        "thal"
+    ],
+    "dataset": "UCI Cleveland Heart Disease Dataset",
+    "random_state": 42,
+    "prediction_threshold": 0.5,
+    "evaluation_method": "Nested Stratified Cross-Validation",
+    "outer_folds": 5,
+    "inner_folds": 4
+}

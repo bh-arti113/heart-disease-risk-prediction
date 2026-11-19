@@ -1,4 +1,3 @@
-
 """
 Heart Disease Risk Prediction
 Model Comparison Using Cross-Validation
@@ -7,9 +6,17 @@ Model Comparison Using Cross-Validation
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedKFold, cross_validate
-from sklearn.metrics import make_scorer, confusion_matrix
 from .train import build_model_pipelines
-from sklearn.metrics import make_scorer, confusion_matrix, precision_score
+from sklearn.metrics import (
+    accuracy_score,
+    average_precision_score,
+    confusion_matrix,
+    f1_score,
+    make_scorer,
+    precision_score,
+    recall_score,
+    roc_auc_score
+)
 
 
 def calculate_specificity(y_true, y_pred):
@@ -23,10 +30,11 @@ def calculate_specificity(y_true, y_pred):
 
 
 def compare_models_cv(
-    X_train,
-    y_train,
+    X,
+    y,
     preprocessor,
-    random_state=42
+    random_state=42,
+    n_split=5
 ):
     """
     Compare candidate models using stratified
@@ -34,17 +42,24 @@ def compare_models_cv(
     """
 
     cv = StratifiedKFold(
-        n_splits=5,
+        n_splits = 5,
         shuffle=True,
         random_state=random_state
     )
+
     scoring = {
         "accuracy": "accuracy",
         "precision": make_scorer(precision_score, zero_division=0),
-        "recall": "recall",
-        "f1": "f1",
+        "recall": make_scorer(
+            recall_score,
+            zero_division=0
+        ),
+        "f1": make_scorer(
+            f1_score,
+            zero_division=0
+            ),
         "roc_auc": "roc_auc",
-        "pr_auc": "average_precision",
+        "average_precision": "average_precision",
         "specificity": make_scorer(calculate_specificity),
     }
     pipelines = build_model_pipelines(
@@ -56,12 +71,13 @@ def compare_models_cv(
     for model_name, pipeline in pipelines.items():
         scores = cross_validate(
             pipeline,
-            X_train,
-            y_train,
+            X,
+            y,
             cv=cv,
             scoring=scoring,
             return_train_score=False,
-            error_score="raise"
+            error_score="raise",
+            n_jobs=-1
         )
         result = {"Model": model_name}
         for metric in scoring:
@@ -70,8 +86,14 @@ def compare_models_cv(
                 metric_scores
             )
             result[f"{metric.upper()} Std"] = np.std(
-                metric_scores
+                metric_scores,
+                ddof=1
             )
         results.append(result)
-    results_df = pd.DataFrame(results)
-    return results_df
+    
+    return (
+        pd.DataFrame(results)
+        .sort_values("ROC_AUC Mean", ascending=False)
+        .reset_index(drop=True)
+    )
+
